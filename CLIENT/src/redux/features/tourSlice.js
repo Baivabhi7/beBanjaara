@@ -42,7 +42,7 @@ export const getToursByUser = createAsyncThunk(
     "tour/getToursByUser",
      async(userId, {rejectWithValue})=>{
     try{
-     const response = await api.getTour(userId);
+     const response = await api.getTours(userId);
      return response.data;  
     }catch(err){
         return rejectWithValue(err.response.data);
@@ -109,16 +109,16 @@ export const deleteTour = createAsyncThunk(
 //       }
 //     });
   
-  export const getRelatedTours = createAsyncThunk(
-    "tour/getRelatedTours",
-    async (tags, { rejectWithValue }) => {
-      try {
-        const response = await api.getRelatedTours(tags);
-        return response.data;
-      } catch (err) {
-        return rejectWithValue(err.response.data);
-      }
-    });
+  // export const getRelatedTours = createAsyncThunk(
+  //   "tour/getRelatedTours",
+  //   async (tags, { rejectWithValue }) => {
+  //     try {
+  //       const response = await api.getRelatedTours(tags);
+  //       return response.data;
+  //     } catch (err) {
+  //       return rejectWithValue(err.response.data);
+  //     }
+  //   });
 
 
 
@@ -129,6 +129,8 @@ const tourSlice = createSlice({
         tour: {},
         tours: [],
         userTours: [],
+        currentPage: 1,
+        numberOfPages: null,
         error: "",
         loading: false,
         },
@@ -183,7 +185,7 @@ const tourSlice = createSlice({
         })
         .addCase(getToursByUser.rejected, (state, action)=>{
              state.loading = false;
-             state.error = action.payload.message;
+             state.error = action.payload?.message;
         })
         .addCase(deleteTour.pending, (state)=>{
             state.loading = true;
@@ -200,7 +202,7 @@ const tourSlice = createSlice({
         })
         .addCase(deleteTour.rejected, (state, action)=>{
              state.loading = false;
-             state.error = action.payload.message;
+             state.error = action.payload?.message;
         })
         .addCase(updateTour.pending, (state)=>{
             state.loading = true;
@@ -221,10 +223,10 @@ const tourSlice = createSlice({
         })
         .addCase(updateTour.rejected, (state, action)=>{
              state.loading = false;
-             state.error = action.payload.message;
+             state.error = action.payload?.message;
         })
         .addCase(likeTour.pending, (state, action)=>{
-    
+                   state.loading = true;
         })
         .addCase(likeTour.fulfilled, (state, action)=>{
             state.loading = false;
@@ -238,7 +240,7 @@ const tourSlice = createSlice({
               }
         })
         .addCase(likeTour.rejected, (state, action)=>{
-             state.error = action.payload.message;
+             state.error = action.payload?.message;
         })
         .addCase(searchTours.pending, (state)=>{
             state.loading = true;
@@ -249,19 +251,19 @@ const tourSlice = createSlice({
         })
         .addCase(searchTours.rejected, (state, action)=>{
              state.loading = false;
-             state.error = action.payload.message;
+             state.error = action.payload?.message;
         })
-        .addCase(getRelatedTours.pending, (state)=>{
-            state.loading = true;
-        })
-        .addCase(getRelatedTours.fulfilled, (state, action)=>{
-            state.loading = false;
-           state.relatedTours = action.payload;
-        })
-        .addCase(getRelatedTours.rejected, (state, action)=>{
-             state.loading = false;
-             state.error = action.payload.message;
-        })
+        // .addCase(getRelatedTours.pending, (state)=>{
+        //     state.loading = true;
+        // })
+        // .addCase(getRelatedTours.fulfilled, (state, action)=>{
+        //     state.loading = false;
+        //    state.relatedTours = action.payload;
+        // })
+        // .addCase(getRelatedTours.rejected, (state, action)=>{
+        //      state.loading = false;
+        //      state.error = action.payload.message;
+        // })
     },
 });
 
