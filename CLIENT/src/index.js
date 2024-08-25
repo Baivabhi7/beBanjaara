@@ -7,6 +7,9 @@ import {Provider} from "react-redux";
 import store from './redux/store';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import reportWebVitals from './reportWebVitals';
+import {GoogleOAuthProvider} from '@react-oauth/google';
+
+const clientId = 'GOOGLE_OAUTH _CLIENT_ID';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,6 +17,9 @@ root.render(
   <Provider store={store}>
     <App />
     </Provider>
+    {/* <GoogleOAuthProvider clientId = {clientId}>
+      <App/>
+    </GoogleOAuthProvider>  */}
   </React.StrictMode>
 );
 
