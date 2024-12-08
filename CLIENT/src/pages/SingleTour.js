@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { MDBCard, MDBCardBody, MDBCardText, MDBCardImage, MDBContainer, MDBIcon } from 'mdb-react-ui-kit';
+import { MDBCard, MDBCardBody, MDBCardText, MDBCardImage, MDBContainer, MDBIcon, MDBBtn } from 'mdb-react-ui-kit';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import moment from "moment";
 import { getTour } from '../redux/features/tourSlice';
 
@@ -10,7 +10,7 @@ const SingleTour = () => {
     const dispatch = useDispatch();
     const {tour} = useSelector((state)=>({...state.tour}));
     const {id} = useParams();
-
+    const navigate = useNavigate();
     useEffect(()=>{
         if(id){
             dispatch(getTour(id))
@@ -27,6 +27,17 @@ const SingleTour = () => {
             alt={tour?.title}
             />
             <MDBCardBody>
+            <MDBBtn tag="a"
+             color='none'
+              style={{float: "left", color:"#000"}}
+              onClick={()=>navigate("/")}
+              >
+             <MDBIcon
+              fas
+              size="lg"
+              icon="fas fa-long-arrow-alt-left"
+              />
+            </MDBBtn>
                 <h3>{tour?.title}</h3>
                 <span>
                     <p className='text-start tourName'>Created By: {tour?.name}</p>
