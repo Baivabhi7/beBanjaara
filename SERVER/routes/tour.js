@@ -22,7 +22,7 @@ import {
   router.get("/:id", getTour);
   
   router.post("/",auth, createTour);
-  router.delete("/:id", auth, deleteTour);
+  router.delete("/:id", deleteTour);
   router.patch("/:id", auth, updateTour);
   router.get("/userTours/:id", auth, getToursByUser);
   router.patch("/like/:id", auth, likeTour);
